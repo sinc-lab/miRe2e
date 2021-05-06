@@ -73,6 +73,29 @@ new_model = MiRe2E(mfe_model_file="trained_mfe_predictor.pkl",
 ```
 
   
+
+### Structure prediction model
+
+To train the Structure prediction model, run:
+```python
+from miRe2e import MiRe2e
+model = MiRe2e(device="cuda")
+model.fit_structure("hairpin_examples.fa")
+```
+The fasta file should contain sequences of hairpins and it's secondary structure.
+
+### MFE estimation model
+
+To train the Structure prediction model, run:
+```python
+from miRe2e import MiRe2e
+model = MiRe2e(device="cuda")
+model.fit_mfe("mfe_examples.fa")
+```
+
+The fasta file should contain sequences of pre-miRNAs, hairpin and flats with the target MFE. 
+
+
 ### Pre-miRNA classifier model
 
 To train the pre-miRNA classifier model, you need at least one set of 
@@ -94,20 +117,3 @@ model.fit(pos_fname="positive_examples.fa",
           neg_fname="negative_examples.fa")
 ```
 
-### Structure prediction model
-
-To train the Structure prediction model, run:
-```python
-from miRe2e import MiRe2e
-model = MiRe2e(device="cuda")
-model.fit_structure("structure_examples.fa")
-```
-
-### MFE estimation model
-
-To train the Structure prediction model, run:
-```python
-from miRe2e import MiRe2e
-model = MiRe2e(device="cuda")
-model.fit_mfe("mfe_examples.fa")
-```
