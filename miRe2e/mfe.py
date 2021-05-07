@@ -44,7 +44,11 @@ class MFE(nn.Module):
     def fit(self, input_fasta, structure_model, batch_size=512,
             max_epochs=200, verbose=True, length=100):
 
+        if verbose:
+            print("Loading sequences...")
         seq_fasta, _, mfe_fasta = load_seq_struct_mfe(input_fasta)
+        if verbose:
+            print(f"Done ({len(seq_fasta)} sequences)")
         structure_model._eval()
 
         ind = np.arange(len(seq_fasta))

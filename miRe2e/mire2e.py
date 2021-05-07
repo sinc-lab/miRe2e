@@ -13,17 +13,18 @@ from .preprocessor import Preprocessor
 from .aux import gen_code, get_pe
 
 
-PRETRAINED = {"structure": f"https://github.com/sinc-lab/miRe2e/blob/master"
-                           f"/models/structure.pkl?raw=true",
-              "mfe": f"https://github.com/sinc-lab/miRe2e/blob/master"
-                           f"/models/mfe.pkl?raw=true",
-              "predictor": f"https://github.com/sinc-lab/miRe2e/blob/master"
-                           f"/models/predictor.pkl?raw=true"}
+BASE_URL = "https://github.com/sinc-lab/miRe2e/blob/master/models/"
+PRETRAINED = {"animals-structure": f"{BASE_URL}structure.pkl?raw=true",
+              "animals-mfe": f"{BASE_URL}mfe.pkl?raw=true",
+              "animals-predictor": f"{BASE_URL}predictor.pkl?raw=true",
+              "hsa-structure": f"{BASE_URL}structure-hsa.pkl?raw=true",
+              "hsa-mfe": f"{BASE_URL}mfe-hsa.pkl?raw=true",
+              "hsa-predictor": f"{BASE_URL}predictor-hsa.pkl?raw=true"}
 
 class MiRe2e:
     """End-to-end deep learning model based on Transformers for
     pre-miRNA prediction."""
-    def __init__(self, device="cpu", pretrained=True, mfe_model_file=None,
+    def __init__(self, device="cpu", pretrained="hsa", mfe_model_file=None,
                  structure_model_file=None, predictor_model_file=None,
                  length=100):
         """
@@ -32,7 +33,9 @@ class MiRe2e:
         Parameters
         ----------
         device: Either "cpu" or "cuda"
-        pretrained: Use pretrained models
+        pretrained: Use pretrained models: "hsa" for h. sapiens, "animals"
+        for a set from several animals, or "no" to avoid using pre-trained
+        weights.
         mfe_model_file: Alternative model file for MFE prediction
         structure_model_file: Alternative model file for structure prediction
         predictor_model_file: Alternative model file for pre-miRNA prediction
@@ -48,25 +51,25 @@ class MiRe2e:
 
         self.preprocessor = Preprocessor(0, device)
 
-        if pretrained:
+        if pretrained != "no":
 
             if structure_model_file is None:
-                state_dict = load_state_dict_from_url(PRETRAINED["structure"],
-                                                      map_location=device)
+                state_dict = load_state_dict_from_url(
+                    PRETRAINED[f"{pretrained}-structure"], map_location=device)
             else:
                 state_dict = tr.load(structure_model_file, map_location=device)
             self._structure.load_state_dict(state_dict)
 
             if mfe_model_file is None:
-                state_dict = load_state_dict_from_url(PRETRAINED["mfe"],
-                                                      map_location=device)
+                state_dict = load_state_dict_from_url(
+                    PRETRAINED[f"{pretrained}-mfe"], map_location=device)
             else:
                 state_dict = tr.load(mfe_model_file, map_location=device)
             self._mfe.load_state_dict(state_dict)
 
             if predictor_model_file is None:
-                state_dict = load_state_dict_from_url(PRETRAINED["predictor"],
-                                                      map_location=device)
+                state_dict = load_state_dict_from_url(
+                    PRETRAINED[f"{pretrained}-predictor"], map_location=device)
             else:
                 state_dict = tr.load(predictor_model_file, map_location=device)
             self._predictor.load_state_dict(state_dict)
@@ -180,8 +183,8 @@ class MiRe2e:
 
         """
         # Reset current model
-        self._structure = Structure(device=self.device, batch_size=batch_size)
-        self._structure.fit(input_fasta)
+        self._structure = Structure(device=self.device)
+        self._structure.fit(input_fasta, batch_size=batch_size)
 
     def fit_mfe(self, input_fasta, batch_size=512):
         """Fit MSE estimator. It uses previously trained structure model.

@@ -71,7 +71,11 @@ class Structure(nn.Module):
 
         """
 
+        if verbose:
+            print("Loading sequences...")
         sequence, structure, _ = load_seq_struct_mfe(input_fasta)
+        if verbose:
+            print(f"Done ({len(sequence)} sequences)")
 
         ind = np.arange(len(sequence))
         np.random.shuffle(ind)

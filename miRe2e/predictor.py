@@ -135,8 +135,7 @@ class Predictor(nn.Module):
 
         # Load and prepare dataset
         if verbose:
-            print("loading seqs...")
-
+            print("Loading sequences...")
         train_seq, train_labels, valid_seq, valid_labels = \
             load_train_valid_data(pos_fname, neg_fname, val_pos_fname,
                                   val_neg_fname, length=length)
