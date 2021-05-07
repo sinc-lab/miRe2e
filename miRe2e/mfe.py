@@ -49,7 +49,7 @@ class MFE(nn.Module):
         seq_fasta, _, mfe_fasta = load_seq_struct_mfe(input_fasta)
         if verbose:
             print(f"Done ({len(seq_fasta)} sequences)")
-        structure_model._eval()
+        structure_model.eval()
 
         ind = np.arange(len(seq_fasta))
         np.random.shuffle(ind)

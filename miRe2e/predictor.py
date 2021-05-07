@@ -166,8 +166,8 @@ class Predictor(nn.Module):
                                   coef=ce_weights, device=self.device)
 
         # Structure and MFE are computed and cached in the first epoch
-        structure_model._eval()
-        mfe_model._eval()
+        structure_model.eval()
+        mfe_model.eval()
         self.preprocessor = Preprocessor(0, device=self.device)
         self.structure_cache = tr.zeros(len(train_seq), self.length,
                                         1).to(self.device)
