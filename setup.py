@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="miRe2e",
-    version="0.16",
+    version="0.17",
     author="Jonathan Raad",
     author_email="jraad@sinc.unl.edu.ar",
     description="An end-to-end deep neural network based on Transformers for "

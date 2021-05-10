@@ -51,27 +51,32 @@ class MiRe2e:
 
         self.preprocessor = Preprocessor(0, device)
 
-        if pretrained != "no":
-
-            if structure_model_file is None:
+        if structure_model_file is None:
+            if pretrained != "no":
                 state_dict = load_state_dict_from_url(
                     PRETRAINED[f"{pretrained}-structure"], map_location=device)
-            else:
-                state_dict = tr.load(structure_model_file, map_location=device)
+                self._structure.load_state_dict(state_dict)
+        else:
+            state_dict = tr.load(structure_model_file, map_location=device)
             self._structure.load_state_dict(state_dict)
 
-            if mfe_model_file is None:
+        if mfe_model_file is None:
+            if pretrained != "no":
                 state_dict = load_state_dict_from_url(
                     PRETRAINED[f"{pretrained}-mfe"], map_location=device)
-            else:
-                state_dict = tr.load(mfe_model_file, map_location=device)
+                self._mfe.load_state_dict(state_dict)
+        else:
+            state_dict = tr.load(mfe_model_file, map_location=device)
             self._mfe.load_state_dict(state_dict)
 
-            if predictor_model_file is None:
+
+        if predictor_model_file is None:
+            if pretrained != "no":
                 state_dict = load_state_dict_from_url(
                     PRETRAINED[f"{pretrained}-predictor"], map_location=device)
-            else:
-                state_dict = tr.load(predictor_model_file, map_location=device)
+                self._predictor.load_state_dict(state_dict)
+        else:
+            state_dict = tr.load(predictor_model_file, map_location=device)
             self._predictor.load_state_dict(state_dict)
 
     def _eval(self):
