@@ -29,9 +29,9 @@ When installing miRe2e, pre-trained weights for humans will be automatically dow
 The model receives a fasta file with a raw RNA sequence. The sequence is
 analyzed with a sliding window, and a pre-miRNA score is assigned to each sub-sequence. 
 
-You can find a complete demonstration of usage in [miRe2e usage](https://colab.research.google.com/drive/1k_4T4a5i79SQ3cQEEfCmgY_jp7RkLQ8b).
+You can find a complete demonstration of usage in [this notebook](https://colab.research.google.com/drive/1k_4T4a5i79SQ3cQEEfCmgY_jp7RkLQ8b).
 
-Reproducing paper results: this notebook contains the detailed steps to reproduce the results presented in the paper. 
+Reproducing paper results: [this notebook](https://colab.research.google.com/drive/1pI2SmT9s20LxnhJ_y8Tu4loDuyFNJNLi) contains the detailed steps to reproduce the results presented in the paper. 
 
 
 
@@ -40,7 +40,7 @@ Reproducing paper results: this notebook contains the detailed steps to reproduc
 A Python>=3.7 distribution is required to use this package. Install
 the latest version of the package from PyPI:
 
-   pip install -U miRe2e
+    pip install -U miRe2e
 
  or clone this repository and install with:
 
@@ -60,13 +60,11 @@ model = MiRe2e()
 The same way, you can load the model pre-trained with animals (excluding H. sapiens) with:
  
 ```python
-from miRe2e import MiRe2e
 model = MiRe2e(pretrained='animals')
 ```
 To use other pretrained models:
 
 ```python
-from miRe2e import MiRe2e
 new_model = MiRe2e(mfe_model_file='trained_mfe_predictor.pkl',
                    structure_model_file='trained_structure_predictor.pkl',
                    predictor_model_file='trained_predictor.pkl')
@@ -77,10 +75,7 @@ These model files are optional and you can specify any of them. The ones that ar
 
 Training the models may take several hours and requires GPU processing 
 capabilities beyond the ones provided freely by Google Colab. In the 
-following, there are instructions for training each stage of miRe2e. 
-
-Each one of the following steps will train a stage of the model. New models are saved as 
-pickle files (*.pkl). 
+following, there are instructions for training each stage of miRe2e. New models are saved as  pickle files (*.pkl). 
 
   
 
@@ -88,18 +83,14 @@ pickle files (*.pkl).
 
 To train the Structure prediction model, run:
 ```python
-from miRe2e import MiRe2e
-model = MiRe2e(device='cuda')
 model.fit_structure('hairpin_examples.fa')
 ```
-The fasta file should contain sequences of hairpins and it's secondary structure. For example, the file[hairpin_examples.fa](https://sourceforge.net/projects/sourcesinc/files/mire2e/data/hairpin_examples.zip/download) can be used. The new model is saved in the root directory with the name “trained_structure_predictor.pkl”
+The fasta file should contain sequences of hairpins and it's secondary structure. For example, the file [hairpin_examples.fa](https://sourceforge.net/projects/sourcesinc/files/mire2e/data/hairpin_examples.zip/download) can be used. The new model is saved in the root directory with the name “trained_structure_predictor.pkl”
 
 ### MFE estimation model
 
 To train the MFE estimation model, run:
 ```python
-from miRe2e import MiRe2e
-model = MiRe2e(device='cuda')
 model.fit_mfe('mfe_examples.fa')
 ```
 
@@ -112,16 +103,11 @@ To train the pre-miRNA classifier model, you need at least one set of
 positive samples (known pre-miRNA sequences) and a set of negative samples. 
 Each sample must be a trimmed to 100 nt in length to use the current 
 model configuration. These should be stored in a single fasta file. Furthermore, since the pre-miRNAs have an average length of less 
-than 100nt, it is  necessary to randomly trim negative training sequences 
-to match the positive distribution. This prevents that training got  
-biased by 
-the length of the sequences.          
+than 100nt, it is  necessary to randomly trim negative training sequences to match the positive distribution. This prevents that training got biased by the length of the sequences.          
 
 To train this stage, run:
 
 ```python
-from miRe2e import MiRe2e
-model = MiRe2e(device='cuda')
 model.fit(pos_fname='positive_examples.fa', 
           neg_fname='negative_examples.fa')
 ```
