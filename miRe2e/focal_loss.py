@@ -4,7 +4,7 @@ import torch as tr
 
 class FocalLoss(nn.Module):
     def __init__(self, alpha=1, gamma=2, logits=False, reduce=True,
-                 coef=tr.ones([2]), device="cuda"):
+                 coef=tr.ones([2]), device="cpu"):
         super(FocalLoss, self).__init__()
         self.alpha = alpha
         self.gamma = gamma

@@ -181,14 +181,14 @@ class Predictor(nn.Module):
         for epoch in range(max_epochs):
             self.train()
             predictions_all = tr.empty(len(sampler_train) * batch_size,
-                                       2).cuda()
-            labels_all = tr.empty(len(sampler_train) * batch_size, 2).cuda()
+                                       2).to(self.device)
+            labels_all = tr.empty(len(sampler_train) * batch_size, 2).to(self.device)
             loss_all = []
 
             predictions_all_valid = tr.empty(len(sampler_valid) * batch_size,
-                                             2).cuda()
+                                             2).to(self.device)
             labels_all_valid = tr.empty(len(sampler_valid) * batch_size,
-                                        2).cuda()
+                                        2).to(self.device)
             loss_all_valid = []
 
             if verbose:

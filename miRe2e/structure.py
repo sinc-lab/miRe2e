@@ -12,7 +12,7 @@ from .data_process import load_seq_struct_mfe
 class Structure(nn.Module):
     """Model for RNA secondary structure prediction."""
 
-    def __init__(self, device):
+    def __init__(self, device='cpu'):
         super(Structure, self).__init__()
 
         self.feature_dim = 111
@@ -130,7 +130,7 @@ class Structure(nn.Module):
 
                 self.zero_grad()
 
-                PE_batch = get_pe(largo_seq.int(), length).float().cuda()
+                PE_batch = get_pe(largo_seq.int(), length).float().to(self.device)
                 prediction = self(seq, PE_batch)
 
                 loss = loss_function(prediction.view(batch_size, -1),
@@ -154,9 +154,9 @@ class Structure(nn.Module):
                 for num, i in enumerate(sampler_test):
 
                     # Generate batch
-                    seq = tr.zeros(batch_size, length, 4).cuda()
+                    seq = tr.zeros(batch_size, length, 4).to(self.device)
                     largo_seq = tr.zeros(batch_size)
-                    seq_struct = tr.zeros(batch_size, length, 1).cuda()
+                    seq_struct = tr.zeros(batch_size, length, 1).to(self.device)
                     Y = tr.empty(batch_size, 1, 2)
                     for j, k in enumerate(i):
                         seq[j, 0:(sequence[valid_ind[i[j]]]).size(0),
