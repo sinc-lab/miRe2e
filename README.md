@@ -37,8 +37,11 @@ Reproducing paper results: [this notebook](https://colab.research.google.com/dri
 
 ## Installation
 
-A Python>=3.7 distribution is required to use this package. Install
-the latest version of the package from PyPI:
+A Python>=3.7 distribution is required to use this package. If you plan to use a GPU, please check the [pytorch web](https://pytorch.org/get-started/locally/) to configure it correctly before installing this package. 
+
+By default, the package use the cpu, thus it is recommended to use GPU to train the models.
+
+Install the latest version of the package from PyPI:
 
     pip install -U miRe2e
 
@@ -55,6 +58,13 @@ The package can be used as depicted in the notebooks. The default pre-trained mo
 ```python
 from miRe2e import MiRe2e
 model = MiRe2e()
+```
+
+By default, MiRe2e object is created to use cpu only. If the server has at least one GPU, you need to pass the parameter device='cuda'. You can select a specific device, i.e. device='cuda:1' if you to have two  GPUs and you want to use the second one:
+
+```python
+from miRe2e import MiRe2e
+model = MiRe2e(device='cuda:1')
 ```
 
 The same way, you can load the model pre-trained with animals (excluding H. sapiens) with:
