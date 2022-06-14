@@ -53,6 +53,7 @@ class MiRe2e:
 
         if structure_model_file is None:
             if pretrained != "no":
+                assert f"{pretrained}-structure" in PRETRAINED, f'pretrained model {pretrained} is not recognized'
                 state_dict = load_state_dict_from_url(
                     PRETRAINED[f"{pretrained}-structure"], map_location=device)
                 self._structure.load_state_dict(state_dict)

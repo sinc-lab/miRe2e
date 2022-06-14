@@ -77,6 +77,8 @@ class Structure(nn.Module):
         if verbose:
             print(f"Done ({len(sequence)} sequences)")
 
+        assert len(sequence)>=10*batch_size, f"batch_size should be between 1 and 1/10 the number of sequences. batch_size={batch_size} was given for {len(sequence)} sequences"
+
         ind = np.arange(len(sequence))
         np.random.shuffle(ind)
         L = int(len(ind)*.8)
@@ -87,11 +89,11 @@ class Structure(nn.Module):
             tr.utils.data.BatchSampler(
                 tr.utils.data.RandomSampler(range(len(train_ind)),
                                             replacement=True), batch_size,
-                drop_last=True))
+                drop_last=False))
 
         sampler_test = list(tr.utils.data.BatchSampler(
             tr.utils.data.SequentialSampler(range(len(valid_ind))), batch_size,
-            drop_last=True))
+            drop_last=False))
 
         optimizer = optim.SGD(self.parameters(), lr=1)
         scheduler = tr.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)

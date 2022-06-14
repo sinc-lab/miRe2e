@@ -47,6 +47,9 @@ class MFE(nn.Module):
         if verbose:
             print("Loading sequences...")
         seq_fasta, _, mfe_fasta = load_seq_struct_mfe(input_fasta)
+
+        assert len(seq_fasta)>=10*batch_size, f"batch_size should be between 1 and 1/10 the number of sequences. batch_size={batch_size} was given for {len(seq_fasta)} sequences"
+
         if verbose:
             print(f"Done ({len(seq_fasta)} sequences)")
         structure_model.eval()

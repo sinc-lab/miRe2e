@@ -81,19 +81,22 @@ new_model = MiRe2e(mfe_model_file='trained_mfe_predictor.pkl',
 ```
 These model files are optional and you can specify any of them. The ones that are not specified are loaded from pre-trained defaults. 
  
+Check code documentation for advanced options.
+
 ## Training the models
 
 Training the models may take several hours and requires GPU processing 
 capabilities beyond the ones provided freely by Google Colab. In the 
 following, there are instructions for training each stage of miRe2e. New models are saved as  pickle files (*.pkl). 
 
+Training scripts were made for a 12GB GPU. You can adjust batch_size according to your hardware setup.
   
 
 ### Structure prediction model
 
 To train the Structure prediction model, run:
 ```python
-model.fit_structure('hairpin_examples.fa')
+model.fit_structure('hairpin_examples.fa', batch_size=512)
 ```
 The fasta file should contain sequences of hairpins and it's secondary structure. For example, the file [hairpin_examples.fa](https://sourceforge.net/projects/sourcesinc/files/mire2e/data/hairpin_examples.zip/download) can be used. The new model is saved in the root directory with the name “trained_structure_predictor.pkl”
 

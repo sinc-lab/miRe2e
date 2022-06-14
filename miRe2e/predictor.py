@@ -139,6 +139,8 @@ class Predictor(nn.Module):
         train_seq, train_labels, valid_seq, valid_labels = \
             load_train_valid_data(pos_fname, neg_fname, val_pos_fname,
                                   val_neg_fname, length=length)
+        
+        assert len(train_seq)>=10*batch_size, f"batch_size should be between 1 and 1/10 the number of sequences. batch_size={batch_size} was given for {len(train_seq)} sequences"
 
         if verbose:
             print(f"Training sequences {len(train_seq)} ("
