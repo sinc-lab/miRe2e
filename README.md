@@ -23,13 +23,14 @@ The model has 3 stages, as depicted in the figure:
 This repository is a package to easily use the miRe2e model. It provides models pre-trained with *H. sapiens*. It also provides the source code to train the models with your own data. miRe2e is open sourced and free to use. If you use any part of this package, please cite our work. 
 
 An easy to try online demo is available at [https://sinc.unl.edu.ar/web-demo/miRe2e/](https://sinc.unl.edu.ar/web-demo/miRe2e/). This demo runs a pre-trained model on small RNA sequences. To use larger datasets or train your own model, see the following instructions.
+
 ## Quick start with pre-trained human model
 
 When installing miRe2e, pre-trained weights for humans will be automatically downloaded.
 The model receives a fasta file with a raw RNA sequence. The sequence is
 analyzed with a sliding window, and a pre-miRNA score is assigned to each sub-sequence. 
 
-You can find a complete demonstration of usage in [this notebook](https://colab.research.google.com/drive/1k_4T4a5i79SQ3cQEEfCmgY_jp7RkLQ8b).
+You can find a complete demonstration of usage in [this notebook](https://colab.research.google.com/drive/1k_4T4a5i79SQ3cQEEfCmgY_jp7RkLQ8b). If you want to try the model as it is, it is recommended to **start with this notebook**
 
 Reproducing paper results: [this notebook](https://colab.research.google.com/drive/1pI2SmT9s20LxnhJ_y8Tu4loDuyFNJNLi) contains the detailed steps to reproduce the results presented in the paper. 
 
