@@ -30,9 +30,9 @@ When installing miRe2e, pre-trained weights for humans will be automatically dow
 The model receives a fasta file with a raw RNA sequence. The sequence is
 analyzed with a sliding window, and a pre-miRNA score is assigned to each sub-sequence. 
 
-You can find a complete demonstration of usage in [this notebook](https://colab.research.google.com/github/sinc-lab/miRe2e/blob/master/demo.ipynb). If you want to try the model as it is, it is recommended to **start with this notebook**
+You can find a complete demonstration of usage in [this notebook](https://colab.research.google.com/github/sinc-lab/miRe2e/blob/master/demo.ipynb), with the pretrained model.
 
-Reproducing paper results: [this notebook](https://colab.research.google.com/drive/1pI2SmT9s20LxnhJ_y8Tu4loDuyFNJNLi) contains the detailed steps to reproduce the results presented in the paper. 
+The detailed steps to reproduce the results presented in the paper are [in this notebook](https://colab.research.google.com/github/sinc-lab/miRe2e/blob/master/results.ipynb). 
 
 
 
